@@ -142,16 +142,38 @@ endif()
 #------------------------------------------------------------------------------
 # QT
 #------------------------------------------------------------------------------
-SET(QT_MIN_VERSION "4.6.0")
+SET(QT_MIN_VERSION "5.0.0")
 
 # find qt
-find_package(Qt4 REQUIRED QtCore QtNetwork)
+find_package(Qt5Widgets)
+find_package(Qt5Svg)
+find_package(Qt5OpenGL)
+find_package(Qt5Network)
+find_package(Qt5WebEngine)
 
-IF (NOT QT4_FOUND)
-  message(STATUS "QT4 not found!")
+IF (NOT Qt5Widgets_FOUND)
+  message(STATUS "QT5Widgets not found!")
 	message(FATAL_ERROR "To find a custom Qt installation use: cmake <..more options..> -D QT_QMAKE_EXECUTABLE='<path_to_qmake(.exe)' <src-dir>")
 ENDIF()
-include(${QT_USE_FILE})
-include(UseQt4)
+
+# The Qt5Widgets_INCLUDES also includes the include directories for
+# dependencies QtCore and QtGui
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+include_directories(${Qt5Svg_INCLUDE_DIRS})
+include_directories(${Qt5OpenGL_INCLUDE_DIRS})
+include_directories(${Qt5Network_INCLUDE_DIRS})
+include_directories(${Qt5WebEngine_INCLUDE_DIRS})
+
+# We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
+add_definitions(${Qt5Widgets_DEFINITIONS})
+add_definitions(${Qt5Svg_DEFINITIONS})
+add_definitions(${Qt5OpenGL_DEFINITIONS})
+add_definitions(${Qt5Network_DEFINITIONS})
+add_definitions(${Qt5WebEngine_DEFINITIONS})
+
+# Executables fail to build with Qt 5 in the default configuration
+# without -fPIE. We add that here.
+set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+
 
 #------------------------------------------------------------------------------

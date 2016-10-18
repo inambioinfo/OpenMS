@@ -40,6 +40,12 @@ set(visual_executables_list
   MultiGradient_test
 )
 
+# Tell CMake to run moc when necessary:
+set(CMAKE_AUTOMOC ON)
+
+# As moc files are generated in the binary dir, tell CMake to always look for includes there:
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 #------------------------------------------------------------------------------
 # required to build GUI tests (e.g., TOPPView_test)
 add_definitions(-DQT_GUI_LIB)
@@ -75,12 +81,12 @@ if(HAS_XSERVER)
 
   #------------------------------------------------------------------------------
   # Use QtTest lib
-  find_package(Qt4 REQUIRED QtTest)
-  if (NOT QT4_FOUND)
+
+  find_package(Qt5Test REQUIRED)
+  if (NOT Qt5Test_FOUND)
     message(STATUS "QtTest module not found!")
     message(FATAL_ERROR "To find a custom Qt installation use: cmake <..more options..> -D QT_QMAKE_EXECUTABLE='<path_to_qmake(.exe)' <src-dir>")
   endif()
-  include(${QT_USE_FILE})
 
   #------------------------------------------------------------------------------
   # We need some special treatments of boost in moc, hence we search for boost
@@ -91,7 +97,7 @@ if(HAS_XSERVER)
   # Add GUI tests
   foreach(_gui_test ${GUI_executables_list})
     # moc the test file
-    QT4_WRAP_CPP(_mocced_test_file source/GUI/${_gui_test}.cpp OPTIONS ${BOOST_MOC_ARGS})
+    QT5_WRAP_CPP(_mocced_test_file source/GUI/${_gui_test}.cpp OPTIONS ${BOOST_MOC_ARGS})
     # define source file dependency
     set_source_files_properties(source/GUI/${_gui_test}.cpp PROPERTIES OBJECT_DEPENDS ${_mocced_test_file})
     # add the executable

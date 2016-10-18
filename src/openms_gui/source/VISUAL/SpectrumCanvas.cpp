@@ -40,14 +40,13 @@
 #include <OpenMS/VISUAL/MetaDataBrowser.h>
 
 // QT
-#include <QtGui/QPainter>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QBitmap>
-#include <QtGui/QWheelEvent>
-#include <QtGui/QMessageBox>
-#include <QtGui/QPushButton>
-#include <QtGui/QFontMetrics>
-#include <QtGui/QFontMetrics>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QBitmap>
+#include <QWheelEvent>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPushButton>
+#include <QFontMetrics>
 
 #include <iostream>
 

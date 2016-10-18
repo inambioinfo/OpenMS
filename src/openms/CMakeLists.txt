@@ -111,8 +111,12 @@ openms_add_library(TARGET_NAME  OpenMS
                                  ${OpenMS_configured_headers}
                    INTERNAL_INCLUDES ${PROJECT_SOURCE_DIR}/include
                                      ${PROJECT_BINARY_DIR}/include
-									 PRIVATE_INCLUDES ${EOL_BSPLINE_INCLUDE_DIRECTORY}
-                   EXTERNAL_INCLUDES ${QT_INCLUDES}
+                   PRIVATE_INCLUDES ${EOL_BSPLINE_INCLUDE_DIRECTORY}
+                   EXTERNAL_INCLUDES ${Qt5Widgets_INCLUDE_DIRS}
+                                     ${Qt5Network_INCLUDE_DIRS}
+                                     ${Qt5Svg_INCLUDE_DIRS}
+                                     ${Qt5OpenGL_INCLUDE_DIRS}
+                                     ${Qt5WebEngine_INCLUDE_DIRS}
                                      ${GSL_INCLUDE_DIRS}
                                      ${Boost_INCLUDE_DIRS}
                                      ${SEQAN_INCLUDE_DIRS}
@@ -128,7 +132,11 @@ openms_add_library(TARGET_NAME  OpenMS
                                      ${COIN_INCLUDE_DIRS}
                    LINK_LIBRARIES OpenSwathAlgo
                                   ${APPLE_EXTRA_LIBS}
-                                  ${QT_LIBRARIES}
+                                  ${Qt5Widgets_LIBRARIES}
+                                  ${Qt5Network_LIBRARIES}
+                                  ${Qt5OpenGL_LIBRARIES}
+                                  ${Qt5Svg_LIBRARIES}
+                                  ${Qt5WebEngine_LIBRARIES}
                                   ${OPENMS_DEP_LIBRARIES}
                    DLL_EXPORT_PATH "OpenMS/")
 
